@@ -28,8 +28,18 @@ cd tun-main
    ```
 
 3. Follow the on-screen menu to install xray, provide your configuration,
-   activate or deactivate routing, test your external IP, or toggle screen
-   clearing if you want to keep previous log output visible.
+   activate or deactivate routing, test your external IP, view recent xray
+   logs, or toggle screen clearing if you want to keep previous output visible.
 
 The menu displays a colored status indicator: **green** when the
 VPN rules are active and **red** when they are not.
+
+## Checking Logs
+
+Select "View logs" from the menu to display the last 20 lines from the xray
+service. The script will try to read `/var/log/xray/` if it exists, otherwise it
+falls back to `journalctl`:
+
+```bash
+sudo journalctl -u xray -n 20 --no-pager
+```

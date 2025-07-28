@@ -132,6 +132,15 @@ toggle_clear() {
     fi
 }
 
+show_logs() {
+    log_msg INFO "Displaying xray logs..."
+    if [ -d /var/log/xray ]; then
+        sudo tail -n 20 /var/log/xray/* 2>/dev/null
+    else
+        sudo journalctl -u xray -n 20 --no-pager
+    fi
+}
+
 menu() {
     while true; do
         if [ "$CLEAR_SCREEN" -eq 1 ]; then
@@ -148,6 +157,7 @@ menu() {
         echo "4) Deactivate routing"
         echo "5) Test IP address"
         echo "6) Toggle screen clearing"
+        echo "7) View logs"
         echo "0) Exit"
         read -rp "Choice: " choice
         case $choice in
@@ -157,6 +167,7 @@ menu() {
             4) deactivate_vpn ;;
             5) test_ip ;;
             6) toggle_clear ;;
+            7) show_logs ;;
             0) exit 0 ;;
             *) echo "Invalid option" ;;
         esac
