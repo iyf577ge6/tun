@@ -28,7 +28,8 @@ cd tun-main
    ```
 
 3. Follow the on-screen menu to install xray, provide your configuration,
-   activate or deactivate routing, and test your external IP.
+   activate or deactivate routing, test your external IP, or toggle screen
+   clearing if you want to keep previous log output visible.
 
 The menu displays a colored status indicator: **green** when the
 VPN rules are active and **red** when they are not.

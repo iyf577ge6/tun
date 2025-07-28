@@ -8,6 +8,9 @@ RED="\033[0;31m"
 BLUE="\033[0;34m"
 NC="\033[0m"
 
+# Enable or disable clearing the screen between menu refreshes
+CLEAR_SCREEN=1
+
 CONFIG_DIR="/usr/local/etc/xray"
 CONFIG_PATH="$CONFIG_DIR/config.json"
 RULE_COMMENT="VPN_MENU_RULE"
@@ -119,9 +122,21 @@ test_ip() {
     curl -s ipinfo.io
 }
 
+toggle_clear() {
+    if [ "$CLEAR_SCREEN" -eq 1 ]; then
+        CLEAR_SCREEN=0
+        log_msg INFO "Screen clearing disabled"
+    else
+        CLEAR_SCREEN=1
+        log_msg INFO "Screen clearing enabled"
+    fi
+}
+
 menu() {
     while true; do
-        clear
+        if [ "$CLEAR_SCREEN" -eq 1 ]; then
+            clear
+        fi
         echo "-----------------------------"
         echo "-         VPN Menu         -"
         echo "-----------------------------"
@@ -132,6 +147,7 @@ menu() {
         echo "3) Activate routing"
         echo "4) Deactivate routing"
         echo "5) Test IP address"
+        echo "6) Toggle screen clearing"
         echo "0) Exit"
         read -rp "Choice: " choice
         case $choice in
@@ -140,6 +156,7 @@ menu() {
             3) activate_vpn ;;
             4) deactivate_vpn ;;
             5) test_ip ;;
+            6) toggle_clear ;;
             0) exit 0 ;;
             *) echo "Invalid option" ;;
         esac
