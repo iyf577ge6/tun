@@ -5,6 +5,13 @@ traffic through **xray-core** using a tun2socks approach. The script can
 install xray, accept a custom V2Ray configuration, activate or deactivate
 routing rules, and test the VPS IP address.
 
+## Installation
+
+```bash
+sudo apt-get update -y && sudo apt-get upgrade -y
+git clone https://github.com/yourusername/tun.git
+```
+
 ## Usage
 
 1. Make the script executable:
