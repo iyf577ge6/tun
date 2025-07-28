@@ -8,8 +8,9 @@ routing rules, and test the VPS IP address.
 ## Installation
 
 ```bash
-sudo apt-get update -y && sudo apt-get upgrade -y
-git clone https://github.com/yourusername/tun.git
+curl -L https://github.com/yourusername/tun/archive/refs/heads/main.zip -o tun.zip
+unzip tun.zip
+cd tun-main
 ```
 
 ## Usage
