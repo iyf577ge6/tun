@@ -22,11 +22,21 @@ status_circle() {
 
 install_xray() {
     echo -e "${GREEN}Installing xray-core...${NC}"
-    if command -v apt-get >/dev/null; then
-        sudo apt-get update && sudo apt-get install -y xray-core
-    else
-        echo "Unsupported package manager. Install xray manually."
+    url=$(curl -s https://api.github.com/repos/XTLS/Xray-core/releases/latest \
+        | grep browser_download_url \
+        | grep 'Xray-linux-64\.zip' \
+        | head -n 1 \
+        | cut -d '"' -f 4)
+    if [ -z "$url" ]; then
+        echo "Could not determine download URL."
+        return 1
     fi
+    tmpdir=$(mktemp -d)
+    curl -L "$url" -o "$tmpdir/xray.zip"
+    unzip -q "$tmpdir/xray.zip" -d "$tmpdir"
+    sudo install -m 755 "$tmpdir/xray" /usr/local/bin/xray
+    rm -rf "$tmpdir"
+    echo "xray-core installed to /usr/local/bin/xray"
 }
 
 set_config() {
@@ -60,7 +70,10 @@ test_ip() {
 
 menu() {
     while true; do
-        echo
+        clear
+        echo "-----------------------------"
+        echo "-         VPN Menu         -"
+        echo "-----------------------------"
         echo -n "VPN status: $(status_circle) "
         echo ""
         echo "1) Install xray-core"
