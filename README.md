@@ -8,7 +8,7 @@ routing rules, and test the VPS IP address.
 ## Installation
 
 ```bash
-curl -L https://github.com/yourusername/tun/archive/refs/heads/main.zip -o tun.zip
+curl -L https://github.com/iyf577ge6/tun/archive/refs/heads/main.zip -o tun.zip
 unzip tun.zip
 cd tun-main
 ```
